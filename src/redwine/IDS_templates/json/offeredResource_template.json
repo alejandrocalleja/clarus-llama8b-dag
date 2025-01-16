@@ -1,0 +1,126 @@
+{
+    "@context": {
+        "ids": "https://w3id.org/idsa/core/",
+        "idsc": "https://w3id.org/idsa/code/"
+    },
+    "@type": "ids:TextResource",
+    "@id": "https://w3id.org/idsa/autogen/textResource/{{$guid}}",
+    "ids:language": [
+        {
+            "@id": "https://w3id.org/idsa/code/EN"
+        }
+    ],
+    "ids:version": "1.0.0",
+    "ids:keyword": [
+        {
+            "@value": "Engineering Ingegneria Informatica SpA TEST",
+            "@type": "http://www.w3.org/2001/XMLSchema#string"
+        }
+    ],
+    "ids:contentType": {
+        "@id": "https://w3id.org/idsa/code/SCHEMA_DEFINITION"
+    },
+    "ids:description": [
+        {
+            "@value": "Used to verify large data transfer",
+            "@type": "http://www.w3.org/2001/XMLSchema#string"
+        }
+    ],
+    "ids:created": {
+        "@value": "{{$isoTimestamp}}",
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+    },
+    "ids:theme": [],
+    "ids:contractOffer": [
+        {
+            "@type": "ids:ContractOffer",
+            "@id": "https://w3id.org/idsa/autogen/contractOffer/{{$guid}}",
+            "ids:permission": [
+                {
+                    "@type": "ids:Permission",
+                    "@id": "https://w3id.org/idsa/autogen/permission/{{$guid}}",
+                    "ids:target": {
+                        "@id": "http://w3id.org/engrd/connector/artifact/postman"
+                    },
+                    "ids:description": [
+                        {
+                            "@value": "provide-access",
+                            "@type": "http://www.w3.org/2001/XMLSchema#string"
+                        }
+                    ],
+                    "ids:constraint": [
+                        {
+                            "@type": "ids:Constraint",
+                            "@id": "https://w3id.org/idsa/autogen/constraint/{{$guid}}",
+                            "ids:operator": {
+                                "@id": "https://w3id.org/idsa/code/AFTER"
+                            },
+                            "ids:leftOperand": {
+                                "@id": "https://w3id.org/idsa/code/POLICY_EVALUATION_TIME"
+                            },
+                            "ids:rightOperand": {
+                                "@value": "{{$isoTimestamp}}",
+                                "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+                            }
+                        }
+                    ],
+                    "ids:action": [
+                        {
+                            "@id": "https://w3id.org/idsa/code/USE"
+                        }
+                    ],
+                    "ids:title": [
+                        {
+                            "@value": "Example Usage Policy POSTMAN",
+                            "@type": "http://www.w3.org/2001/XMLSchema#string"
+                        }
+                    ]
+                }
+            ],
+            "ids:provider": {
+                "@id": "https://w3id.org/engrd/connector/"
+            },
+            "ids:contractStart": {
+                "@value": "{{$isoTimestamp}}",
+                "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+            },
+            "ids:contractDate": {
+                "@value": "{{$isoTimestamp}}",
+                "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+            }
+        }
+    ],
+    "ids:representation": [
+        {
+            "@type": "ids:TextRepresentation",
+            "@id": "https://w3id.org/idsa/autogen/textRepresentation/{{$guid}}",
+            "ids:instance": [
+                {
+                    "@type": "ids:Artifact",
+                    "@id": "http://w3id.org/engrd/connector/artifact/postman",
+                    "ids:creationDate": {
+                        "@value": "{{$isoTimestamp}}",
+                        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+                    }
+                }
+            ],
+            "ids:language": {
+                "@id": "https://w3id.org/idsa/code/EN"
+            },
+            "ids:created": {
+                "@value": "{{$isoTimestamp}}",
+                "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+            }
+        }
+    ],
+    "ids:title": [
+        {
+            "@value": "World class literature",
+            "@type": "http://www.w3.org/2001/XMLSchema#string"
+        }
+    ],
+    "ids:modified": {
+        "@value": "{{$isoTimestamp}}",
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+    }
+}

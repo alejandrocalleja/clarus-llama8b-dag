@@ -1,0 +1,65 @@
+name: Sync Submodule
+
+env:
+    username: 'ikerlan'
+
+on:
+    push:
+        paths:
+            - '**.py'
+
+jobs:
+    trigger_workflow:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Get DAG names
+              id: get_dag_names
+              run: |
+                find_dag_functions() {
+                    local file="$1"
+                    local functions=$(cat "$file" | sed 's/([^()]*)//g' | grep -Pzo "@dag\(([^)]+)\)\s*def\s+([a-zA-Z_]\w*)" | grep -ozP "def\s+([a-zA-Z_]\w*)" | cut -d ' ' -f 2)
+                    echo "$functions"
+                }
+
+                process_files() {
+                    local dir="$1"
+                    local files=$(find "$dir" -type f -name "*.py")
+                    local all_functions=""
+
+                    for file in $files; do
+                        local functions=$(find_dag_functions "$file")
+                        if [ -n "$functions" ]; then
+                            all_functions="$all_functions,$functions"
+                        fi
+                    done
+
+                    # Eliminar la primera coma y los espacios en blanco al principio y al final
+                    all_functions=$(echo "$all_functions" | sed 's/^,//;s/ //g')
+                    echo "$all_functions"
+                }
+
+                current_dir=$(pwd)
+                echo $current_dir
+                DAGS=$(process_files "$current_dir")
+                DAGS=$(echo "$DAGS" | sed 's/,/ /g')
+                echo $DAGS
+                echo "dags=$DAGS" >> $GITHUB_OUTPUT
+
+            - name: Trigger central repo workflow
+              uses: convictional/trigger-workflow-and-wait@v1.6.1
+              with:
+                  owner: MiKeLFernandeZz 
+                  repo: central-repo
+                  github_token: ${{  secrets.CENTRAL_REPO_TOKEN  }}
+                  workflow_file_name: sync_submodule.yml 
+                  ref: main
+                  wait_interval: 10
+                  propagate_failure: true
+                  trigger_workflow: true
+                  wait_workflow: true
+                  client_payload: '{"submodule":"https://github.com/${{  github.repository }}.git","submodule_path":"${{  github.repository  }}","branch":"${{ github.ref_name  }}","username":"${{ env.username }}","dag":"${{ steps.get_dag_names.outputs.dags }}"}'
+    
